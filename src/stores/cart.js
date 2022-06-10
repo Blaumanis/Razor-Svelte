@@ -60,19 +60,18 @@ export const decreaseAmount = id => {
     });
   };
 
-export const addToCart = (id, product) => {
+export const addToCart = product => {
     cart.update(storeValue => {
+      const { id, image, title, price } = product;
       let item = storeValue.find(item => item.id === id);
-  
       let cart;
       if (item) {
         cart = toggleAmount(id, storeValue, "inc");
       } else {
-        const { id, image, title, price } = product;
         let newItem = { id, image, title, price, amount: 1 };
         cart = [...storeValue, newItem];
       }
-      return [...cart];
+      return cart;
     });
   };
 
