@@ -47,34 +47,34 @@ export const increaseAmount = id => {
     })
 }
 
-export const decreaseAmount = (id,amount) => {
+export const decreaseAmount = id => {
     cart.update(storeValue => {
-        // let item = storeValue.find(item => item.id === id)
-        let cart;
-        if(amount === 1) {
-            cart = remove(id,storeValue)
-        } else {
-            cart = toggleAmount(id, storeValue, 'dec')
-        }
-        return [...cart]
-    })
-}
+      let item = storeValue.find(item => item.id === id);
+      let cart;
+      if (item.amount === 1) {
+        cart = remove(id, storeValue);
+      } else {
+        cart = toggleAmount(id, storeValue, "dec");
+      }
+      return [...cart];
+    });
+  };
 
-export const addToCart = product => {
+export const addToCart = (id, product) => {
     cart.update(storeValue => {
-        const {id, image, title, price} = product;
-        let item = storeValue.find(item => item.id === id)
-        let cart;
-        if(item) {
-            cart = toggleAmount(id, storeValue, 'inc')
-        }
-        else {
-            let newItem = {id, image, title, price, amount: 1}
-            cart = [...storeValue, newItem]
-        }
-        return cart;
-    })
-}
+      let item = storeValue.find(item => item.id === id);
+  
+      let cart;
+      if (item) {
+        cart = toggleAmount(id, storeValue, "inc");
+      } else {
+        const { id, image, title, price } = product;
+        let newItem = { id, image, title, price, amount: 1 };
+        cart = [...storeValue, newItem];
+      }
+      return [...cart];
+    });
+  };
 
 // localStorage
 function getStorageCart() {
